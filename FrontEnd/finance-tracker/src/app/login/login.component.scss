@@ -1,0 +1,456 @@
+/* =============================================================
+   Auth page — full-screen, split layout
+   Design tokens match the rest of the application
+   ============================================================= */
+
+$primary:       #2563EB;
+$primary-dark:  #1D4ED8;
+$primary-light: rgba(37, 99, 235, 0.08);
+$text-main:     #111827;
+$text-secondary:#4B5563;
+$text-muted:    #6B7280;
+$border:        #E5E7EB;
+$error:         #EF4444;
+$success:       #10B981;
+$card-bg:       #FFFFFF;
+
+/* ── Full-screen two-column wrapper ── */
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Left brand panel ── */
+.auth-brand {
+  width: 420px;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, #1e3a8a 0%, #2563EB 60%, #3b82f6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+
+  /* subtle pattern overlay */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.06) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 50%);
+  }
+}
+
+.brand-content {
+  position: relative;
+  color: #fff;
+}
+
+.brand-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  svg {
+    color: #fff;
+  }
+}
+
+.brand-name {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.5px;
+}
+
+.brand-tagline {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.78);
+  margin: 0 0 40px 0;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+
+  .feature-icon {
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+}
+
+/* ── Right form panel ── */
+.auth-form-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F9FAFB;
+  padding: 40px 24px;
+  overflow-y: auto;
+}
+
+.auth-card {
+  background: $card-bg;
+  border: 1px solid $border;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 440px;
+  overflow: hidden;
+}
+
+/* ── Tabs ── */
+.auth-tabs {
+  display: flex;
+  position: relative;
+  border-bottom: 1px solid $border;
+  background: #F9FAFB;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 16px;
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: $text-muted;
+  cursor: pointer;
+  transition: color 0.2s;
+  position: relative;
+  z-index: 1;
+
+  &.active {
+    color: $primary;
+    font-weight: 600;
+  }
+
+  &:hover:not(.active) {
+    color: $text-secondary;
+  }
+}
+
+/* Sliding underline indicator */
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background: $primary;
+  border-radius: 2px 2px 0 0;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.right {
+    transform: translateX(100%);
+  }
+}
+
+/* ── Form panel ── */
+.form-panel {
+  padding: 32px;
+  animation: fadeSlideIn 0.22s ease-out;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.form-header {
+  margin-bottom: 28px;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: $text-main;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.3px;
+  }
+
+  p {
+    font-size: 14px;
+    color: $text-muted;
+    margin: 0;
+  }
+}
+
+/* ── Form groups ── */
+.form-group {
+  margin-bottom: 18px;
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: $text-secondary;
+    margin-bottom: 6px;
+  }
+}
+
+/* Side-by-side name fields */
+.name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+
+  label {
+    margin-bottom: 0;
+  }
+}
+
+.forgot-link {
+  font-size: 12px;
+  font-weight: 500;
+  color: $primary;
+  text-decoration: none;
+  transition: color 0.15s;
+
+  &:hover {
+    color: $primary-dark;
+    text-decoration: underline;
+  }
+}
+
+/* ── Inputs ── */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .input-icon {
+    position: absolute;
+    left: 12px;
+    color: $text-muted;
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+
+  .form-input {
+    padding-left: 38px;
+  }
+
+  .toggle-pw {
+    position: absolute;
+    right: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: $text-muted;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color 0.15s;
+
+    &:hover {
+      color: $text-main;
+    }
+  }
+}
+
+.form-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid $border;
+  border-radius: 8px;
+  font-size: 14px;
+  color: $text-main;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  background: $card-bg;
+
+  &::placeholder {
+    color: #C9CDD5;
+  }
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px $primary-light;
+  }
+
+  &.error {
+    border-color: $error;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+  }
+}
+
+.field-error {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: $error;
+  font-weight: 500;
+}
+
+/* ── Checkbox ── */
+.checkbox-group {
+  margin-bottom: 22px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: $text-secondary;
+  cursor: pointer;
+  user-select: none;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkbox-custom {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid $border;
+    border-radius: 4px;
+    flex-shrink: 0;
+    background: $card-bg;
+    transition: all 0.2s;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      display: none;
+      left: 4px;
+      top: 1px;
+      width: 5px;
+      height: 8px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+  }
+
+  input[type="checkbox"]:checked + .checkbox-custom {
+    background: $primary;
+    border-color: $primary;
+
+    &::after {
+      display: block;
+    }
+  }
+}
+
+/* ── Submit button ── */
+.auth-btn {
+  display: block;
+  width: 100%;
+  height: 44px;
+  background: $primary;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  margin-top: 4px;
+  letter-spacing: 0.2px;
+
+  &:hover {
+    background: $primary-dark;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+/* ── Switch link below form ── */
+.switch-text {
+  text-align: center;
+  margin: 24px 0 0;
+  font-size: 13px;
+  color: $text-muted;
+}
+
+.switch-link {
+  background: transparent;
+  border: none;
+  color: $primary;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+
+  &:hover {
+    color: $primary-dark;
+    text-decoration: underline;
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .auth-brand {
+    display: none;
+  }
+
+  .auth-form-panel {
+    background: $card-bg;
+    padding: 24px 16px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+
+  .auth-card {
+    box-shadow: none;
+    border: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .name-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-panel {
+    padding: 24px 20px;
+  }
+}
