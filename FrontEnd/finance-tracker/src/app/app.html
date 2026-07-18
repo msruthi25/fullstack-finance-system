@@ -1,0 +1,13 @@
+<div class="app-layout">
+  @if (!isAuthPage()) {
+    <app-sidebar></app-sidebar>
+  }
+  <main [class]="isAuthPage() ? 'auth-main' : 'main-content'">
+    @if (!isAuthPage()) {
+      <header class="top-nav"></header>
+    }
+    <div [class]="isAuthPage() ? 'auth-outlet' : 'content'">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
