@@ -1,0 +1,146 @@
+/* Variables – mirrors expenses page design system */
+$bg-color: #f9f9fb;
+$card-bg: #ffffff;
+$text-main: #111827;
+$text-secondary: #4B5563;
+$text-muted: #6B7280;
+$border-color: #E5E7EB;
+$hover-bg: #F9FAFB;
+$danger-color: #EF4444;
+$success-color: #10B981;
+$primary-color: #2563EB;
+
+
+/* ── Header ── */
+.dashboard-header {
+  max-width: 600px;
+}
+
+.header-section {
+  margin-bottom: 24px;
+
+  h2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: $text-main;
+    margin: 0 0 8px 0;
+  }
+
+  .subheading {
+    font-size: 14px;
+    font-weight: 400;
+    color: $text-muted;
+    margin: 0;
+  }
+}
+
+/* ── Stats Grid ── */
+.stats-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 32px;
+
+  .stat-card {
+    flex: 1;
+    background-color: $card-bg;
+    padding: 20px 24px;
+    border-radius: 12px;
+    border: 1px solid $border-color;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+    }
+
+    /* Icon badge at the top of each card */
+    .stat-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+
+      &.income-icon {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: $success-color;
+      }
+
+      &.expense-icon {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: $danger-color;
+      }
+
+      &.savings-icon {
+        background-color: rgba(37, 99, 235, 0.1);
+        color: $primary-color;
+      }
+
+      &.rate-icon {
+        background-color: rgba(139, 92, 246, 0.1);
+        color: #8B5CF6;
+      }
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: $text-secondary;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      margin: 0 0 6px 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: $text-main;
+    }
+
+    .stat-subtext {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      &.text-success {
+        color: $success-color;
+      }
+
+      &.text-danger {
+        color: $danger-color;
+
+        svg {
+          transform: rotate(180deg);
+        }
+      }
+
+      &.text-muted {
+        color: $text-muted;
+      }
+    }
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .stats-container {
+    flex-wrap: wrap;
+
+    .stat-card {
+      flex: 1 1 calc(50% - 10px);
+      min-width: 0;
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .stats-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
